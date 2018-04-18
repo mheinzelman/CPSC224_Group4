@@ -1,0 +1,28 @@
+		          Super Mario Yahtzee!
+
+ Dice: 6 sided dice with a Star, green shell, fire flower, coin, egg, mushroom as the sides.
+
+ Number of Players: There can be up to four players Mario, Luigi, Yoshi, and Toad.
+
+ How to win: Get the amount of points needed to beat Bowser and save Princess Peach.
+
+ How to play: Each player gets 3 rolls per turn, after you have your final hand of dice choose 
+ which line of the scorecard you would like to keep and mark it down. Continue this process until
+ someone beats bowser and saves the princess.
+
+ Score Card
+ Count and add (if your total score of all the dice is 25 you get a bonus of 10 points)
+ 1.	Shells give you zero points
+ 2.	Mushroom gives you 1 point
+ 3.	Egg gives you 2 points
+ 4.	Fire flower gives you 3 points
+ 5.	Coin gives you 4 points
+ 6.	Star gives you 5 points
+ 7.	3 of a kind (add total of all dice)
+ 8.	4 of a kind (add total of all dice plus 5)
+ 9.	Full House (add 25 points)
+ 10.	Power Up (if you have a star, flower, and a mushroom add 30 points)
+ 11.	All objects (add 40 points)
+ 12.	All shells (add 75 points)
+ 13.	Mario! (any other 5 of a kind add 50 points)
+ 14.	Chance (add score of all dice)
