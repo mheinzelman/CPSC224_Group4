@@ -14,6 +14,11 @@ public class ScoreArray {
 	private int score;
 	private boolean picked;
 	
+	ScoreArray(){
+		score = 0;
+		picked = false;
+	}
+	
 	/**
 	 * setScore sets the score
 	 * @param scoreIn

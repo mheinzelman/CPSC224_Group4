@@ -91,7 +91,7 @@ public class PlayerNumberFrame extends JFrame{
 			onePlayer.addActionListener(onePlayerAction);
 			twoPlayer.addActionListener(twoPlayerAction);
 			threePlayer.addActionListener(threePlayerAction);
-			fourPlayer.addActionListener(threePlayerAction);
+			fourPlayer.addActionListener(fourPlayerAction);
 			quitPlayerNumberScreen.addActionListener(quitPlayerNumberAction);
 			menuPlayerNumberScreen.addActionListener(menuPlayerNumberAction);
 		}
@@ -99,6 +99,9 @@ public class PlayerNumberFrame extends JFrame{
 	
 	private class PlayerNumberAction implements ActionListener {
 		private int buttonNumber;
+		private Hand[] curHands;
+		private Game[] curGames;
+		private ScoreCard[] curCards;
 		
 		PlayerNumberAction(int buttonNumber){
 			this.buttonNumber = buttonNumber;
@@ -106,21 +109,34 @@ public class PlayerNumberFrame extends JFrame{
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			// Remove these checks and just pass in buttonNumber into the methods
+			// but first check if it's 5 or 6
 			if (buttonNumber == 1) {
 				//one Player button pressed
 				//create an instance of the next screen
+				new RollDiceScreenFrame(1);
+				currentFrame.dispose();
 			}
 			else if (buttonNumber == 2) {
 				//two player button pressed
 				//create an instance of the next screen
+				
+				new RollDiceScreenFrame(2);
+				currentFrame.dispose();
 			}
 			else if (buttonNumber == 3) {
 				//three player button pressed
 				//create an instance of the next screen
+				
+				new RollDiceScreenFrame(3);
+				currentFrame.dispose();
 			}
 			else if (buttonNumber == 4) {
 				//four player button pressed
 				//create an instance of the next screen
+				
+				new RollDiceScreenFrame(4);
+				currentFrame.dispose();
 			}
 			else if (buttonNumber == 5) {
 				//quit button pressed
@@ -133,6 +149,7 @@ public class PlayerNumberFrame extends JFrame{
 			}
 			
 		}
+		
 		
 	}
 

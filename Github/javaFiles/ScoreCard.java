@@ -1,10 +1,20 @@
 
 public class ScoreCard {
 	private ScoreArray[] currentScoreArray;
+	public int cardID = 0;
 	
-	ScoreCard(int numberOfPlayers){
+	ScoreCard(int ID){
+		cardID = ID;
 		//create an element for every line in the Score Card
-		currentScoreArray[17] = new ScoreArray();
+		currentScoreArray = new ScoreArray[17];
+		initScoreArray();
+	}
+	
+	
+	public boolean isUsed(int line) {
+		if (currentScoreArray[line].getPicked() == false)
+			return false;
+		return true;
 	}
 	
 	public boolean scoreLine(int line, int score) {
@@ -23,10 +33,19 @@ public class ScoreCard {
 	public int getScore(int line) {
 		//if the line has not yet been scored, return -1 to show there
 		// is no score on that line
-		if (currentScoreArray[line].getPicked() == false)
-			return -1;
+		//if (currentScoreArray[line].getPicked() == false)
+			//return -1;
 		
 		//otherwise return the score
 		return currentScoreArray[line].getScore();
+	}
+	
+	/**
+	 * initScoreArray initializes the array scores to have objects of ScoreArray 
+	 */
+	private void initScoreArray() {
+		for (int i = 0; i < 17; i++) {
+			currentScoreArray[i] = new ScoreArray();
+		}
 	}
 }
