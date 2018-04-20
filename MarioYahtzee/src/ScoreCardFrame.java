@@ -7,9 +7,10 @@ import javax.swing.*;
 public class ScoreCardFrame extends JFrame{
 	private ScoreCardFrame currentFrame = this;
 	private ScoreCard currentCard;
-	
-	ScoreCardFrame(ScoreCard currentCard){
+	private SuperMarioYahtzee controller;
+	ScoreCardFrame(ScoreCard currentCard, SuperMarioYahtzee controller){
 		this.currentCard = currentCard;
+		this.controller = controller;
 		//create the new frame for the game
 		setTitle("Super Mario Yahtzee!");
 		//set the size of the frame
@@ -33,10 +34,11 @@ public class ScoreCardFrame extends JFrame{
 			addTitle();
 			//set the background color
 			setBackground(Color.CYAN);
-			// add the buttons
-			addButtons();
+			//chose score to record buttons
+			scoreChooseButtons();
 			//display scores
 			displayScores();
+			
 		}
 		@Override
 		public void paintComponent(Graphics g) {
@@ -61,23 +63,29 @@ public class ScoreCardFrame extends JFrame{
 			add(title);
 		}
 		
-		private void addButtons(){
-			//create the buttons
-			JButton backScoreCard = new JButton("BACK");
+		private void scoreChooseButtons() {
+			//create a new jpanel for the buttons to go on
+			JPanel chooseButtonPanel = new JPanel();
+			chooseButtonPanel.setBounds(850, 105, 40, 617);
+			chooseButtonPanel.setLayout(new GridLayout(17,1));
+			chooseButtonPanel.setOpaque(false);
 			
-			//set the size and location of the button
-			backScoreCard.setBounds(100, 700, 200, 50);
+			for (int i = 0; i < 17; i++) {
+				//if we are at any of these positions, add a label instead
+				if (i == 7 || i == 8 || currentCard.isUsed(i) == true) {
+					JLabel space = new JLabel();
+					chooseButtonPanel.add(space);
+				}
+				else {
+					//else add a button
+					JButton temp = new JButton("");
+					temp.addActionListener(new ScoreCardAction(i));
+					chooseButtonPanel.add(temp);
+				}
 			
-			//change the font
-			backScoreCard.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
+			}
 			
-			//add the button to the panel
-			add(backScoreCard);
-			
-			//create an action listener for this button and add the action 
-			//listener to the button
-			backScoreCard.addActionListener(new ScoreCardAction());
-			
+			add(chooseButtonPanel);
 		}
 		
 		private String determineID() {
@@ -122,15 +130,34 @@ public class ScoreCardFrame extends JFrame{
 	}
 	
 	private class ScoreCardAction implements ActionListener {
+		private int buttonNumb;
+		ScoreCardAction(int buttonNumb){
+			this.buttonNumb = buttonNumb;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// if that was the last round, show the final screen
-			
-			//if there are more rounds, go to the roll screen for the next player
-			//
-			currentFrame.dispose();
-			
+			for (int i = 0; i < 17; i++) {
+				if (buttonNumb == i) {
+					currentCard.setPicked(i, true);
+					currentFrame.dispose();
+					//increment round
+					currentCard.incrementRound();
+					if(currentCard.getRound() < 15) {
+						//create a new instance of the roll screen
+						//and create a new hand with a new roll
+						controller.getGame(currentCard.cardID).getHand().createHand();
+						new RerollDiceScreenFrame(controller.getGame(currentCard.cardID), currentCard, controller, 0);
+					}
+					else {
+						//do something to show that the game is over, and go to the final screen
+						//create a function determine winner in the controller that makes sure that all players have completed 
+						//all 15 rounds. Then loop through all the total scores of the scorecards, determine the largest once and 
+						//create an instance of the final screen passing in the winning sc
+					}
+					
+				}
+			}
 		}
 		
 	}

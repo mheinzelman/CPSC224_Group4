@@ -2,9 +2,11 @@
 public class ScoreCard {
 	private ScoreArray[] currentScoreArray;
 	public int cardID = 0;
+	private int round;
 	
 	ScoreCard(int ID){
 		cardID = ID;
+		round = 0;
 		//create an element for every line in the Score Card
 		currentScoreArray = new ScoreArray[17];
 		initScoreArray();
@@ -12,9 +14,10 @@ public class ScoreCard {
 	
 	
 	public boolean isUsed(int line) {
-		if (currentScoreArray[line].getPicked() == false)
+		/*if (currentScoreArray[line].getPicked() == false)
 			return false;
-		return true;
+		return true;*/
+		return currentScoreArray[line].getPicked();
 	}
 	
 	public boolean scoreLine(int line, int score) {
@@ -24,10 +27,13 @@ public class ScoreCard {
 		
 		//set the score and setPicked for that line to true
 		currentScoreArray[line].setScore(score);
-		currentScoreArray[line].setPicked(true);
 		
 		//return true as the score was successfully added
 		return true;
+	}
+	
+	public void setPicked(int line, boolean pickedIn) {
+		currentScoreArray[line].setPicked(pickedIn);
 	}
 	
 	public int getScore(int line) {
@@ -47,5 +53,13 @@ public class ScoreCard {
 		for (int i = 0; i < 17; i++) {
 			currentScoreArray[i] = new ScoreArray();
 		}
+	}
+	
+	public int getRound() {
+		return round;
+	}
+	
+	public void incrementRound() {
+		round++;
 	}
 }

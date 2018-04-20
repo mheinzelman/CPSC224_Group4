@@ -205,7 +205,7 @@ public class RerollDiceScreenFrame extends JFrame{
 				//create the new scorecard to display and display it
 				controller.createScoreCard(curCard, curGame);
 				
-				new ScoreCardFrame(curCard);
+				new ScoreCardFrame(curCard, controller);
 				
 				currentFrame.dispose();
 			}	
