@@ -78,7 +78,7 @@ public class Game {
 	    boolean found3K = false;
 	    boolean found2K = false;
 	    int currentCount ;
-	    for (int dieValue = 1; dieValue <= currentHand.getSides(); dieValue++)
+	    for (int dieValue = 0; dieValue <= currentHand.getSides(); dieValue++)
 	    {
 	        currentCount = 0;
 	        for (int diePosition = 0; diePosition < currentHand.getDice(); diePosition++)
@@ -98,6 +98,44 @@ public class Game {
 	    if (found2K && found3K)
 	        foundFH = true;
 	    return foundFH;
+	}
+	/**
+	 * if the hand has a flower a mushroom and a star
+	 * @return true
+	 */
+	public boolean PowerUp (){
+        boolean foundPowerUp = false;
+        boolean hasFlower = false;
+        boolean hasMoshroom = false;
+        boolean hasStar = false;
+        
+        for (int dieValue = 0; dieValue <= 6; dieValue++) {
+            int currentCount = 0;
+            for (int diePosition = 0; diePosition < 5; diePosition++) {
+                if (currentHand.intAt(diePosition) == 1)
+                    hasMoshroom = true;
+                if (currentHand.intAt(diePosition) == 3)
+                    hasFlower = true;
+                if (currentHand.intAt(diePosition) == 5)
+                    hasStar = true;
+                
+            }
+        }
+        if (hasFlower && hasMoshroom && hasStar)
+            foundPowerUp = true;
+        return foundPowerUp;
+    }
+	
+	public boolean allDifferent() {
+		//initiate the flag alldifferent to true
+		boolean allDifferent = true;
+		//loop through each possible die value and count how many there are of each
+		for(int i = 0; i < 6; i++) {
+			if (totalDieFace(i) > 1) 
+				allDifferent = false;
+		}
+		
+		return allDifferent;
 	}
 	
 	/**
@@ -127,6 +165,15 @@ public class Game {
 		}
 		int score = total * number;
 		return score;
+	}
+	
+	public int totalDieFace(int number) {
+		int total = 0;
+		for (int i = 0; i < currentHand.getDice(); i++) {
+			if (currentHand.intAt(i) == number)
+				total++;
+		}
+		return total;
 	}
 	
 	public int getSides() {

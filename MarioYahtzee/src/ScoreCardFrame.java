@@ -51,16 +51,19 @@ public class ScoreCardFrame extends JFrame{
 		private void addTitle() {
 			//create the JLabel
 			JLabel title = new JLabel("SCORECARD!");
+			JLabel instructions = new JLabel("Press the button to keep the score!");
 			
 			//resize the label
 			setLayout(null);
 			title.setBounds(575, 30, 245, 35);
+			instructions.setBounds(845, 80, 400, 20);
 			
 			//change background color and font
 			title.setOpaque(true);
 			title.setBackground(Color.CYAN);
 			title.setFont(new Font("Super Mario 256", Font.PLAIN, 38));
 			add(title);
+			add(instructions);
 		}
 		
 		private void scoreChooseButtons() {
@@ -140,7 +143,7 @@ public class ScoreCardFrame extends JFrame{
 			for (int i = 0; i < 17; i++) {
 				if (buttonNumb == i) {
 					currentCard.setPicked(i, true);
-					currentFrame.dispose();
+					
 					//increment round
 					currentCard.incrementRound();
 					if(currentCard.getRound() < 15) {
@@ -154,8 +157,16 @@ public class ScoreCardFrame extends JFrame{
 						//create a function determine winner in the controller that makes sure that all players have completed 
 						//all 15 rounds. Then loop through all the total scores of the scorecards, determine the largest once and 
 						//create an instance of the final screen passing in the winning sc
+						
+						if (controller.gameOver()) {
+							//create a new screen of the final screen. replace this with mainscreen
+							ScoreCard winner = controller.determineWinner();
+							//new finalScreenFrame(winner);
+							new MainScreenFrame();
+						}	
+							
 					}
-					
+					currentFrame.dispose();
 				}
 			}
 		}

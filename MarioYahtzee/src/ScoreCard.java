@@ -62,4 +62,8 @@ public class ScoreCard {
 	public void incrementRound() {
 		round++;
 	}
+	
+	public int finalScore() {
+		return (getScore(7) + getScore(16));
+	}
 }
