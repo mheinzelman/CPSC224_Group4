@@ -52,7 +52,12 @@ public class SuperMarioYahtzee {
 		}
 		
 		//show the total for the upper score card
-		curCard.scoreLine(7, curGame.totalAllDice() + curCard.getScore(6));
+		int totalUpper = 0;
+		for (int i = 0; i < 7; i++) {
+			totalUpper += curCard.getScore(i);
+		}
+		curCard.scoreLine(7, totalUpper);
+		//curCard.scoreLine(7, curGame.totalAllDice() + curCard.getScore(6));
 		
 		//three of a kind line
 		if (curCard.isUsed(8) == false) {
@@ -148,9 +153,23 @@ public class SuperMarioYahtzee {
 		return winner;
 	}
 	
+	public int[] winnerArray() {
+		//array with the final scores
+		int[] finalScores = new int[numberPlayers];
+		for (int i = 0; i < numberPlayers; i ++) {
+			finalScores[i] = currentCards[i].finalScore(); 
+			System.out.println(currentCards[i].finalScore());
+		}
+		
+		return finalScores;
+	}
+	
 	
 	public Game getGame(int player) {
 		return currentGames[player];
 	}
 	
+	public int getNumberPlayers() {
+		return numberPlayers;
+	}
 }

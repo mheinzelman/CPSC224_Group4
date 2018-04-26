@@ -73,7 +73,7 @@ public class ScoreCardFrame extends JFrame{
 			chooseButtonPanel.setLayout(new GridLayout(17,1));
 			chooseButtonPanel.setOpaque(false);
 			
-			for (int i = 0; i < 17; i++) {
+			for (int i = 0; i < 9; i++) {
 				//if we are at any of these positions, add a label instead
 				if (i == 7 || i == 8 || currentCard.isUsed(i) == true) {
 					JLabel space = new JLabel();
@@ -83,6 +83,20 @@ public class ScoreCardFrame extends JFrame{
 					//else add a button
 					JButton temp = new JButton("");
 					temp.addActionListener(new ScoreCardAction(i));
+					chooseButtonPanel.add(temp);
+				}
+			
+			}
+			for (int i = 9; i < 17; i++) {
+				//if we are at any of these positions, add a label instead
+				if (currentCard.isUsed(i - 1) == true) {
+					JLabel space = new JLabel();
+					chooseButtonPanel.add(space);
+				}
+				else {
+					//else add a button
+					JButton temp = new JButton("");
+					temp.addActionListener(new ScoreCardAction(i - 1));
 					chooseButtonPanel.add(temp);
 				}
 			
@@ -160,9 +174,10 @@ public class ScoreCardFrame extends JFrame{
 						
 						if (controller.gameOver()) {
 							//create a new screen of the final screen. replace this with mainscreen
-							ScoreCard winner = controller.determineWinner();
+							//ScoreCard winner = controller.determineWinner();
 							//new finalScreenFrame(winner);
-							new MainScreenFrame();
+							int[] winner = controller.winnerArray();
+							new LeaderboardRoundScreenFrame(winner, controller.getNumberPlayers());
 						}	
 							
 					}
