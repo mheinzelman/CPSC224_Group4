@@ -14,15 +14,25 @@ import javax.swing.*;
 public class RerollDiceScreenFrame extends JFrame{
 	private RerollDiceScreenFrame currentFrame = this;
 	private Game curGame;
-	private int rerolls;
 	private ScoreCard curCard;
 	private SuperMarioYahtzee controller;
+	private int rerolls;
+	private int totalPlayers; //amount of players in the game
+	private int currentPlayer; //the current player's turn
+	private int currentRound; //current round out of three
+	private int totalRounds;	//total amount of rounds, default is 15
+	private int[] array; //placeholder array for the leaderboard screen
 	
-	RerollDiceScreenFrame(Game curGame, ScoreCard curCard, SuperMarioYahtzee controller, int rerolls){
-		this.rerolls = rerolls;
+	RerollDiceScreenFrame(Game curGame, ScoreCard curCard, SuperMarioYahtzee controller, int rerolls, int totalPlayers, int currentPlayer, int currentRound, int totalRounds, int[] array){
 		this.curGame = curGame;
 		this.curCard = curCard;
 		this.controller = controller;
+		this.rerolls = rerolls;
+		this.totalPlayers = totalPlayers;
+		this.currentPlayer = currentPlayer;
+		this.currentRound = currentRound;
+		this.totalRounds = totalRounds;
+		this.array = array;
 		
 		if(rerolls < 3) {
 			//create the new frame for the game
@@ -80,7 +90,7 @@ public class RerollDiceScreenFrame extends JFrame{
 
 		
 		public void paintComponent(Graphics g) {
-			g.drawImage(new ImageIcon("playersScreenBackground.png").getImage(), 0, 0, 1400, 800, null);
+			g.drawImage(new ImageIcon("rollDiceBackground.png").getImage(), 0, 0, 1400, 800, null);
 			g.drawImage(new ImageIcon(determineID()).getImage(), 10, 10, 40, 40, null);
 		}
 		
@@ -205,7 +215,7 @@ public class RerollDiceScreenFrame extends JFrame{
 				//create the new scorecard to display and display it
 				controller.createScoreCard(curCard, curGame);
 				
-				new ScoreCardFrame(curCard, controller);
+				new ScoreCardFrame(curGame, curCard, controller, totalPlayers, currentPlayer, currentRound, totalRounds, array);
 				
 				currentFrame.dispose();
 			}	
@@ -254,7 +264,7 @@ public class RerollDiceScreenFrame extends JFrame{
 			else if (buttonNumber == 8) {
 				//roll button is pressed, rerolls selected dice
 				//recursively call the rerolldicescreen untill all of the rerolls are used
-				new RerollDiceScreenFrame(curGame, curCard, controller, ++rerolls);
+				new RerollDiceScreenFrame(curGame, curCard, controller, ++rerolls, totalPlayers, currentPlayer, currentRound, totalRounds, array);
 				currentFrame.dispose();
 			}
 		}	

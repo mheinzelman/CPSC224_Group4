@@ -12,7 +12,6 @@ public class ScoreCard {
 		initScoreArray();
 	}
 	
-	
 	public boolean isUsed(int line) {
 		/*if (currentScoreArray[line].getPicked() == false)
 			return false;

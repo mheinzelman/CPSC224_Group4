@@ -15,21 +15,34 @@ import java.util.Collections;
 import javax.swing.*;
 
 public class LeaderboardRoundScreenFrame extends JFrame{
+	private LeaderboardRoundScreenFrame currentFrame = this;
 	private int[] leaderboardScore; //holds the scores from highest to lowest
 	private int[] playerScore; //holds the score for each player
 	private int players; //holds the total number of players
 	private int size; //holds the size of the playerScore array
+	private Game curGame;
+	private ScoreCard curCard;
+	private SuperMarioYahtzee controller;
+	private int totalPlayers; //amount of players in the game
+	private int currentPlayer; //the current player's turn
+	private int currentRound; //current round out of three
+	private int totalRounds;	//total amount of rounds, default is 15
+	private int[] array; //placeholder array for the leaderboard screen
 	
-	private LeaderboardRoundScreenFrame currentFrame = this;
-	
-	/*
-	 * Constructor
-	 * @param takes in an int array containing the scores for each player and an int containing the amount of players currently playing
-	 */
-	LeaderboardRoundScreenFrame(int[] array, int playerAmount){
-		leaderboardScore = new int[playerAmount];
+	LeaderboardRoundScreenFrame(Game curGame, ScoreCard curCard, SuperMarioYahtzee controller, int totalPlayers, int currentPlayer, int currentRound, int totalRounds, int[] array){
+		
+		this.curGame = curGame;
+		this.curCard = curCard;
+		this.controller = controller;
+		this.totalPlayers = totalPlayers;
+		leaderboardScore = new int [totalPlayers];
+		this.currentPlayer = currentPlayer;
+		this.currentRound = currentRound;
+		this.totalRounds = totalRounds;
+		this.array = array;
+		
 		playerScore = Arrays.copyOf(array, array.length); //copy the array from the parameter into playerScore
-		players = playerAmount; //set amount of players
+		players = totalPlayers; //set amount of players
 		//create the new frame for the game
 		setTitle("Super Mario Yahtzee!");
 		//set the size of the frame
@@ -87,7 +100,7 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 		 * This function establishes the background for the screen
 		 */
 		public void paintComponent(Graphics g) {
-			g.drawImage(new ImageIcon("mainScreenBackground.png").getImage(), 0, 0, 1400, 800, null);
+			g.drawImage(new ImageIcon("LeaderboardRound.png").getImage(), 0, 0, 1400, 800, null);
 		}
 		
 		/*
@@ -97,27 +110,33 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//create the three buttons associated with the main screen
 			JButton quitRulesScreen = new JButton("QUIT");
 			JButton menuRulesScreen = new JButton("MENU");
-			
+			JButton rerollScreen = new JButton("NEXT");
+			 
 			//reposition the buttons
 			setLayout(null);
 			quitRulesScreen.setBounds(100, 700, 200, 50);
 			menuRulesScreen.setBounds(1100, 700, 200, 50);
+			rerollScreen.setBounds(600, 350, 200, 50);
 			
 			//change fonts
 			quitRulesScreen.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
 			menuRulesScreen.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
+			rerollScreen.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
 			
 			//add these buttons to the main screen
 			add(quitRulesScreen);
 			add(menuRulesScreen);
-	
+			add(rerollScreen);
+			 
 			//create action listeners
 			LeaderboardRoundScreenAction quitAction = new LeaderboardRoundScreenAction(1);
 			LeaderboardRoundScreenAction menuAction = new LeaderboardRoundScreenAction(2);
-			
+			 LeaderboardRoundScreenAction rerollAction = new LeaderboardRoundScreenAction(3);
+			  
 			//add action listeners to the buttons
 			quitRulesScreen.addActionListener(quitAction);
 			menuRulesScreen.addActionListener(menuAction);
+			rerollScreen.addActionListener(rerollAction);
 		}
 		
 		/*
@@ -390,6 +409,12 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 				new MainScreenFrame();
 				currentFrame.dispose();
 			}	
+			else if(buttonNumber == 3) {
+				//button pressed is NEXT
+                //display reroll screen
+				new RerollDiceScreenFrame(controller.getGame(curCard.cardID), curCard, controller, 0, totalPlayers, 0, currentRound, totalRounds, array);
+			}
+				
 		}	
 	}
 }

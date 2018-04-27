@@ -114,28 +114,28 @@ public class PlayerNumberFrame extends JFrame{
 			if (buttonNumber == 1) {
 				//one Player button pressed
 				//create an instance of the next screen
-				new RollDiceScreenFrame(1);
+				new RollDiceScreenFrame(1, 0, 1, 15); //1 player, start on player 1, round 1, 15 total rounds
 				currentFrame.dispose();
 			}
 			else if (buttonNumber == 2) {
 				//two player button pressed
 				//create an instance of the next screen
 				
-				new RollDiceScreenFrame(2);
+				new RollDiceScreenFrame(2, 0, 1, 15);  //2 players, start on player 1, round 1, 15 total rounds
 				currentFrame.dispose();
 			}
 			else if (buttonNumber == 3) {
 				//three player button pressed
 				//create an instance of the next screen
 				
-				new RollDiceScreenFrame(3);
+				new RollDiceScreenFrame(3, 0, 1, 15);  //3 players, start on player 1, round 1, 15 total rounds
 				currentFrame.dispose();
 			}
 			else if (buttonNumber == 4) {
 				//four player button pressed
 				//create an instance of the next screen
 				
-				new RollDiceScreenFrame(4);
+				new RollDiceScreenFrame(4, 0, 1, 15);  //4 players, start on player 1, round 1, 15 total rounds
 				currentFrame.dispose();
 			}
 			else if (buttonNumber == 5) {

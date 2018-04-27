@@ -4,13 +4,29 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class SuperMarioYahtzee {
-	private int numberPlayers;
 	private Game[] currentGames;
 	private ScoreCard[] currentCards;
+	private Game curGame;
+	private ScoreCard curCard;
+	private SuperMarioYahtzee controller;
+	private int rerolls;
+	private int numberPlayers; //amount of players in the game
+	private int currentPlayer; //the current player's turn
+	private int currentRound; //current round out of three
+	private int totalRounds;	//total amount of rounds, default is 15
+	private int[] array; //placeholder array for the leaderboard screen
 	
-	//initializes all arrays of games and scorecards
-	SuperMarioYahtzee(int numberPlayers) {
-		this.numberPlayers = numberPlayers;
+	SuperMarioYahtzee(Game curGame, ScoreCard curCard, SuperMarioYahtzee controller, int rerolls, int totalPlayers, int currentPlayer, int currentRound, int totalRounds, int[] array){
+		this.curGame = curGame;
+		this.curCard = curCard;
+		this.controller = controller;
+		this.rerolls = rerolls;
+		this.numberPlayers = totalPlayers;
+		this.currentPlayer = currentPlayer;
+		this.currentRound = currentRound;
+		this.totalRounds = totalRounds;
+		this.array = array;
+		
 		currentGames = new Game[numberPlayers];
 		currentCards = new ScoreCard[numberPlayers];
 		initGamesArray();
@@ -25,12 +41,12 @@ public class SuperMarioYahtzee {
 	}
 	
 	private void play() {
-		for (int j = numberPlayers - 1; j >= 0; j--) {
+		//for (int j = 0; j < numberPlayers; j++) {
 			//show the roll screens for each player
-			new RerollDiceScreenFrame(currentGames[j],currentCards[j], this, 0);
+			new RerollDiceScreenFrame(currentGames[0],currentCards[0], this, 0, numberPlayers, currentPlayer, currentRound, totalRounds, array);
 			//show the scorecard somewhere
 			
-		}
+		//}
 	}
 	
 	public void createScoreCard(ScoreCard curCard, Game curGame) {
@@ -166,7 +182,15 @@ public class SuperMarioYahtzee {
 	
 	
 	public Game getGame(int player) {
+		if (player == numberPlayers)
+			return currentGames[0];
 		return currentGames[player];
+	}
+	
+	public ScoreCard getCard(int player) {
+		if (player == numberPlayers)
+			return currentCards[0];
+		return currentCards[player];
 	}
 	
 	public int getNumberPlayers() {

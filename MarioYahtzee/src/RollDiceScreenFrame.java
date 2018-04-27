@@ -13,11 +13,23 @@ import javax.swing.*;
 
 public class RollDiceScreenFrame extends JFrame{
 	private RollDiceScreenFrame currentFrame = this;
-	private int numberPlayers;
 	
-	RollDiceScreenFrame(int numberPlayers){
-		this.numberPlayers = numberPlayers;
-		
+	private Game curGame;
+	private ScoreCard curCard;
+	private SuperMarioYahtzee controller;
+	private int rerolls;
+	private int totalPlayers; //amount of players in the game
+	private int currentPlayer; //the current player's turn
+	private int currentRound; //current round out of three
+	private int totalRounds;	//total amount of rounds, default is 15
+	private int[] array; //placeholder array for the leaderboard screen
+	
+	RollDiceScreenFrame(int totalPlayers, int currentPlayer, int currentRound, int totalRounds){
+		this.totalPlayers = totalPlayers;
+		this.currentPlayer = currentPlayer;
+		this.currentRound = currentRound;
+		this.totalRounds = totalRounds;
+			
 		//create the new frame for the game
 		setTitle("Super Mario Yahtzee!");
 		//set the size of the frame
@@ -29,11 +41,9 @@ public class RollDiceScreenFrame extends JFrame{
 		setVisible(true);
 		
 		//add a RollDiceScreenPanel
-		add(new RollDiceScreenPanel());
-				
+		add(new RollDiceScreenPanel());				
 	}
 	
-
 	public class RollDiceScreenPanel extends JPanel {
 		RollDiceScreenPanel(){
 			//add the buttons
@@ -97,8 +107,7 @@ public class RollDiceScreenFrame extends JFrame{
 			//set background color
 			rollDiceText.setBackground(new Color(0,0,0,0));
 			add(rollDiceText);
-		}
-		
+		}	
 	}
 	
 	private class RollDiceScreenAction implements ActionListener{
@@ -123,7 +132,7 @@ public class RollDiceScreenFrame extends JFrame{
 			else if(buttonNumber == 3) {
 				//button pressed is ROLL
 				//Display reroll menu
-				new SuperMarioYahtzee(numberPlayers);
+				new SuperMarioYahtzee(curGame, curCard, controller, 3, totalPlayers, currentPlayer, currentRound, totalRounds, array);
 				currentFrame.dispose();
 			}			
 		}	

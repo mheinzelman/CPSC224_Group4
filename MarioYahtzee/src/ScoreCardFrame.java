@@ -6,11 +6,25 @@ import javax.swing.*;
 
 public class ScoreCardFrame extends JFrame{
 	private ScoreCardFrame currentFrame = this;
-	private ScoreCard currentCard;
+	private Game curGame;
+	private ScoreCard curCard;
 	private SuperMarioYahtzee controller;
-	ScoreCardFrame(ScoreCard currentCard, SuperMarioYahtzee controller){
-		this.currentCard = currentCard;
+	private int totalPlayers; //amount of players in the game
+	private int currentPlayer; //the current player's turn
+	private int currentRound; //current round out of three
+	private int totalRounds;	//total amount of rounds, default is 15
+	private int[] array; //placeholder array for the leaderboard screen
+	
+	ScoreCardFrame(Game curGame, ScoreCard curCard, SuperMarioYahtzee controller, int totalPlayers, int currentPlayer, int currentRound, int totalRounds, int[] array){
+		this.curGame = curGame;
+		this.curCard = curCard;
 		this.controller = controller;
+		this.totalPlayers = totalPlayers;
+		this.currentPlayer = currentPlayer;
+		this.currentRound = currentRound;
+		this.totalRounds = totalRounds;
+		this.array = array;
+		
 		//create the new frame for the game
 		setTitle("Super Mario Yahtzee!");
 		//set the size of the frame
@@ -75,7 +89,7 @@ public class ScoreCardFrame extends JFrame{
 			
 			for (int i = 0; i < 9; i++) {
 				//if we are at any of these positions, add a label instead
-				if (i == 7 || i == 8 || currentCard.isUsed(i) == true) {
+				if (i == 7 || i == 8 || curCard.isUsed(i) == true) {
 					JLabel space = new JLabel();
 					chooseButtonPanel.add(space);
 				}
@@ -89,7 +103,7 @@ public class ScoreCardFrame extends JFrame{
 			}
 			for (int i = 9; i < 17; i++) {
 				//if we are at any of these positions, add a label instead
-				if (currentCard.isUsed(i - 1) == true) {
+				if (curCard.isUsed(i - 1) == true) {
 					JLabel space = new JLabel();
 					chooseButtonPanel.add(space);
 				}
@@ -106,11 +120,11 @@ public class ScoreCardFrame extends JFrame{
 		}
 		
 		private String determineID() {
-			if (currentCard.cardID == 0) 
+			if (curCard.cardID == 0) 
 				return "MARIO.png";
-			else if (currentCard.cardID == 1)
+			else if (curCard.cardID == 1)
 				return "LUIGI.png";
-			else if(currentCard.cardID == 2)
+			else if(curCard.cardID == 2)
 				return "YOSHI.png";
 			return "TOAD.png";
 		}
@@ -135,9 +149,9 @@ public class ScoreCardFrame extends JFrame{
 				if (i == 0 || i == 9)
 					scorePanel.add(new JLabel(new ImageIcon(determineID())));
 				else if (i > 0 && i < 9)
-					scorePanel.add(new JLabel("       " + currentCard.getScore(i - 1)));
+					scorePanel.add(new JLabel("       " + curCard.getScore(i - 1)));
 				else if (i > 9)
-					scorePanel.add(new JLabel("       " + currentCard.getScore(i - 2)));
+					scorePanel.add(new JLabel("       " + curCard.getScore(i - 2)));
 			}
 			
 			add(scorePanel);
@@ -156,34 +170,34 @@ public class ScoreCardFrame extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			for (int i = 0; i < 17; i++) {
 				if (buttonNumb == i) {
-					currentCard.setPicked(i, true);
-					
+					curCard.setPicked(i, true);		
 					//increment round
-					currentCard.incrementRound();
-					if(currentCard.getRound() < 15) {
-						//create a new instance of the roll screen
-						//and create a new hand with a new roll
-						controller.getGame(currentCard.cardID).getHand().createHand();
-						new RerollDiceScreenFrame(controller.getGame(currentCard.cardID), currentCard, controller, 0);
-					}
-					else {
-						//do something to show that the game is over, and go to the final screen
-						//create a function determine winner in the controller that makes sure that all players have completed 
-						//all 15 rounds. Then loop through all the total scores of the scorecards, determine the largest once and 
-						//create an instance of the final screen passing in the winning sc
-						
-						if (controller.gameOver()) {
-							//create a new screen of the final screen. replace this with mainscreen
-							//ScoreCard winner = controller.determineWinner();
-							//new finalScreenFrame(winner);
-							int[] winner = controller.winnerArray();
-							new LeaderboardRoundScreenFrame(winner, controller.getNumberPlayers());
-						}	
-							
-					}
-					currentFrame.dispose();
+					curCard.incrementRound();
 				}
 			}
+			
+			//If not all the players have played that round yet, move on to the next player
+			if(currentPlayer < (totalPlayers-1)) {
+				new RerollDiceScreenFrame(controller.getGame(curCard.cardID + 1), controller.getCard(currentPlayer + 1), controller, 0, totalPlayers, ++currentPlayer, currentRound, totalRounds, array);
+				currentFrame.dispose();
+			}
+			//If all the players have gone, display the leaderboard for that round
+            else if(currentPlayer == (totalPlayers-1)) {
+                //If it is the last round, display the winner
+                if(currentRound == totalRounds) {
+                		//create a new screen of the final screen. replace this with mainscreen
+					//ScoreCard winner = controller.determineWinner();
+					//new finalScreenFrame(winner);
+                		int[] winner = controller.winnerArray();
+					new LeaderboardRoundScreenFrame(curGame, curCard, controller, controller.getNumberPlayers(), currentPlayer, currentRound, totalRounds, winner);
+					currentFrame.dispose();
+                }
+                //increment the currentRound and reset the current player to 0
+                else {
+                		new RerollDiceScreenFrame(controller.getGame(0), controller.getCard(0), controller, 0, totalPlayers, 0, ++currentRound, totalRounds, array);
+                		currentFrame.dispose();
+                }
+            }
 		}
 		
 	}
