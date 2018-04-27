@@ -25,7 +25,7 @@ public class SuperMarioYahtzee {
 	}
 	
 	private void play() {
-		for (int j = 0; j < numberPlayers; j++) {
+		for (int j = numberPlayers - 1; j >= 0; j--) {
 			//show the roll screens for each player
 			new RerollDiceScreenFrame(currentGames[j],currentCards[j], this, 0);
 			//show the scorecard somewhere

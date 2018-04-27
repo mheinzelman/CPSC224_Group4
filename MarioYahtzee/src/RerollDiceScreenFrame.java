@@ -80,7 +80,7 @@ public class RerollDiceScreenFrame extends JFrame{
 
 		
 		public void paintComponent(Graphics g) {
-			g.drawImage(new ImageIcon("rollDiceBackground.png").getImage(), 0, 0, 1400, 800, null);
+			g.drawImage(new ImageIcon("playersScreenBackground.png").getImage(), 0, 0, 1400, 800, null);
 			g.drawImage(new ImageIcon(determineID()).getImage(), 10, 10, 40, 40, null);
 		}
 		

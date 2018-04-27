@@ -15,7 +15,7 @@ import java.util.Collections;
 import javax.swing.*;
 
 public class LeaderboardRoundScreenFrame extends JFrame{
-	private int[] leaderboardScore = new int[4]; //holds the scores from highest to lowest
+	private int[] leaderboardScore; //holds the scores from highest to lowest
 	private int[] playerScore; //holds the score for each player
 	private int players; //holds the total number of players
 	private int size; //holds the size of the playerScore array
@@ -27,7 +27,7 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 	 * @param takes in an int array containing the scores for each player and an int containing the amount of players currently playing
 	 */
 	LeaderboardRoundScreenFrame(int[] array, int playerAmount){
-		
+		leaderboardScore = new int[playerAmount];
 		playerScore = Arrays.copyOf(array, array.length); //copy the array from the parameter into playerScore
 		players = playerAmount; //set amount of players
 		//create the new frame for the game
@@ -87,7 +87,7 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 		 * This function establishes the background for the screen
 		 */
 		public void paintComponent(Graphics g) {
-			g.drawImage(new ImageIcon("LeaderboardRound.png").getImage(), 0, 0, 1400, 800, null);
+			g.drawImage(new ImageIcon("mainScreenBackground.png").getImage(), 0, 0, 1400, 800, null);
 		}
 		
 		/*

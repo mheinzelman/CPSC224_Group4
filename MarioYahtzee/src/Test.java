@@ -11,6 +11,8 @@ public class Test {
 		//UserInterface max = new UserInterface();
 		//max.displayMainScreen();
 		new MainScreenFrame();
+		//int[] what = {100,4};
+		//new LeaderboardRoundScreenFrame(what, 2);
 		//new ScoreCardFrame(new ScoreCard(3));
 		//new RollDiceScreenFrame();
 		//Game max = new Game();
