@@ -87,7 +87,6 @@ public class RerollDiceScreenFrame extends JFrame{
 				return "YOSHI.png";
 			return "TOAD.png";
 		}
-
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(new ImageIcon("rollDiceBackground.png").getImage(), 0, 0, 1400, 800, null);

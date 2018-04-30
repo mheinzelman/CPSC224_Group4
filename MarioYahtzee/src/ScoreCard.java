@@ -12,6 +12,20 @@ public class ScoreCard {
 		initScoreArray();
 	}
 	
+	/*
+	 * Returns a player's current score in the game
+	 */
+	public int currentPlayerScore() {
+		int totalPlayerScore = 0;
+		for(int i = 0; i < 17; i++) {
+			if(currentScoreArray[i].getPicked() == true) {
+				totalPlayerScore = totalPlayerScore + currentScoreArray[i].getScore();
+			}
+		}
+		return totalPlayerScore;
+	}
+	
+	
 	public boolean isUsed(int line) {
 		/*if (currentScoreArray[line].getPicked() == false)
 			return false;

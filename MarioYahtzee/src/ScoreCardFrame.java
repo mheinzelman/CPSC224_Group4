@@ -112,8 +112,7 @@ public class ScoreCardFrame extends JFrame{
 					JButton temp = new JButton("");
 					temp.addActionListener(new ScoreCardAction(i - 1));
 					chooseButtonPanel.add(temp);
-				}
-			
+				}	
 			}
 			
 			add(chooseButtonPanel);
@@ -152,12 +151,9 @@ public class ScoreCardFrame extends JFrame{
 					scorePanel.add(new JLabel("       " + curCard.getScore(i - 1)));
 				else if (i > 9)
 					scorePanel.add(new JLabel("       " + curCard.getScore(i - 2)));
-			}
-			
+			}			
 			add(scorePanel);
 		}
-		
-		
 	}
 	
 	private class ScoreCardAction implements ActionListener {
@@ -189,12 +185,15 @@ public class ScoreCardFrame extends JFrame{
 					//ScoreCard winner = controller.determineWinner();
 					//new finalScreenFrame(winner);
                 		int[] winner = controller.winnerArray();
-					new LeaderboardRoundScreenFrame(curGame, curCard, controller, controller.getNumberPlayers(), currentPlayer, currentRound, totalRounds, winner);
+                		controller.getGame(currentPlayer).getHand().createHand();
+					new LeaderboardFinalFrame(curGame, curCard, controller, controller.getNumberPlayers(), currentPlayer, currentRound, totalRounds, winner);
 					currentFrame.dispose();
                 }
-                //increment the currentRound and reset the current player to 0
+                //display the round leaderboard to show who is in the lead
                 else {
-                		new RerollDiceScreenFrame(controller.getGame(0), controller.getCard(0), controller, 0, totalPlayers, 0, ++currentRound, totalRounds, array);
+                		int[] winner = controller.roundLeadersArray();
+                		controller.getGame(currentPlayer).getHand().createHand();
+					new LeaderboardRoundScreenFrame(curGame, curCard, controller, controller.getNumberPlayers(), currentPlayer, currentRound, totalRounds, winner);
                 		currentFrame.dispose();
                 }
             }

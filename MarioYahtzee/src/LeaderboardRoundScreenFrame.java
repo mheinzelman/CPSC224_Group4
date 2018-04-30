@@ -115,8 +115,8 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//reposition the buttons
 			setLayout(null);
 			quitRulesScreen.setBounds(100, 700, 200, 50);
-			menuRulesScreen.setBounds(1100, 700, 200, 50);
-			rerollScreen.setBounds(600, 350, 200, 50);
+			menuRulesScreen.setBounds(600, 700, 200, 50);
+			rerollScreen.setBounds(1100, 700, 200, 50);
 			
 			//change fonts
 			quitRulesScreen.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
@@ -376,9 +376,9 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 		 */
 		private void addTextArea() {
 			//create a new JTextArea
-			JTextArea rollDiceText = new JTextArea("Leaderboard!");
+			JTextArea rollDiceText = new JTextArea("Round " + currentRound + "/" + totalRounds + " Results");
 			//resize and reposition the text area
-			rollDiceText.setBounds(550, 50, 300, 100);
+			rollDiceText.setBounds(450, 50, 500, 100);
 			rollDiceText.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
 			//When the words are highlighted, the highlight is black. setOpaque prevents this from happening
 			rollDiceText.setOpaque(false);
@@ -412,7 +412,9 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			else if(buttonNumber == 3) {
 				//button pressed is NEXT
                 //display reroll screen
-				new RerollDiceScreenFrame(controller.getGame(curCard.cardID), curCard, controller, 0, totalPlayers, 0, currentRound, totalRounds, array);
+				//increment the currentRound and reset the current player to 0
+				new RerollDiceScreenFrame(controller.getGame(0), controller.getCard(0), controller, 0, totalPlayers, 0, ++currentRound, totalRounds, array);
+				currentFrame.dispose();
 			}
 				
 		}	

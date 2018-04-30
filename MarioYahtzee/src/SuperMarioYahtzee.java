@@ -41,12 +41,9 @@ public class SuperMarioYahtzee {
 	}
 	
 	private void play() {
-		//for (int j = 0; j < numberPlayers; j++) {
 			//show the roll screens for each player
 			new RerollDiceScreenFrame(currentGames[0],currentCards[0], this, 0, numberPlayers, currentPlayer, currentRound, totalRounds, array);
-			//show the scorecard somewhere
-			
-		//}
+			//show the scorecard somewhere	
 	}
 	
 	public void createScoreCard(ScoreCard curCard, Game curGame) {
@@ -146,8 +143,6 @@ public class SuperMarioYahtzee {
 		}
 		curCard.scoreLine(16, totalLowerScore);
 		
-		
-		
 	}
 	
 	public boolean gameOver() {
@@ -175,11 +170,21 @@ public class SuperMarioYahtzee {
 		for (int i = 0; i < numberPlayers; i ++) {
 			finalScores[i] = currentCards[i].finalScore(); 
 			System.out.println(currentCards[i].finalScore());
-		}
-		
+		}	
 		return finalScores;
 	}
 	
+	/*
+	 * Array that contains the current scores for each player during a round
+	 */
+	public int[] roundLeadersArray() {
+		int[] currentScores = new int[numberPlayers];
+		for (int i = 0; i < numberPlayers; i ++) {
+			currentScores[i] = currentCards[i].currentPlayerScore(); 
+			System.out.println(currentCards[i].currentPlayerScore());
+		}
+		return currentScores;
+	}
 	
 	public Game getGame(int player) {
 		if (player == numberPlayers)
