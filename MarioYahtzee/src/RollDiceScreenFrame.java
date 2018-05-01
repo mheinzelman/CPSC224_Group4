@@ -65,7 +65,7 @@ public class RollDiceScreenFrame extends JFrame{
 			//create the three buttons associated with the main screen
 			JButton quitRulesScreen = new JButton("QUIT");
 			JButton menuRulesScreen = new JButton("MENU");
-			JButton rollDiceScreen = new JButton("ROLL!");
+			JButton rollDiceScreen = new JButton("BEGIN!");
 			
 			//reposition the buttons
 			setLayout(null);
@@ -96,9 +96,9 @@ public class RollDiceScreenFrame extends JFrame{
 		
 		private void addTextArea() {
 			//create a new JTextArea
-			JTextArea rollDiceText = new JTextArea("Roll the dice!");
+			JTextArea rollDiceText = new JTextArea("Click on 'BEGIN' to start!");
 			//resize and reposition the text area
-			rollDiceText.setBounds(550, 50, 300, 100);
+			rollDiceText.setBounds(425, 50, 550, 100);
 			rollDiceText.setFont(new Font("Super Mario 256", Font.PLAIN, 35));
 			//When the words are highlighted, the highlight is black. setOpaque prevents this from happening
 			rollDiceText.setOpaque(false);

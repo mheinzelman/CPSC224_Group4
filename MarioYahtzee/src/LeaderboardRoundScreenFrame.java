@@ -35,7 +35,7 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 		this.curCard = curCard;
 		this.controller = controller;
 		this.totalPlayers = totalPlayers;
-		leaderboardScore = new int [totalPlayers];
+		leaderboardScore = new int[totalPlayers];
 		this.currentPlayer = currentPlayer;
 		this.currentRound = currentRound;
 		this.totalRounds = totalRounds;
@@ -131,7 +131,7 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//create action listeners
 			LeaderboardRoundScreenAction quitAction = new LeaderboardRoundScreenAction(1);
 			LeaderboardRoundScreenAction menuAction = new LeaderboardRoundScreenAction(2);
-			 LeaderboardRoundScreenAction rerollAction = new LeaderboardRoundScreenAction(3);
+			LeaderboardRoundScreenAction rerollAction = new LeaderboardRoundScreenAction(3);
 			  
 			//add action listeners to the buttons
 			quitRulesScreen.addActionListener(quitAction);
@@ -143,12 +143,21 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 		 * This function creates the physical leaderboard to be displayed on the screen
 		 */
 		private void addTextPlacement() {		
-			int place = 0;			
+			int place = -1;			
+			boolean[] isOnLeaderboard = new boolean[totalPlayers];
+			boolean placed = false;
+			
 			//First place text 
 			//Marks the scores from highest to lowest
 			for(int i = 0; i < size; i++) {
 				if(leaderboardScore[0] == playerScore[i]) {
-					place = i;
+					System.out.println("0a");
+					if(isOnLeaderboard[i] == false && !placed) {
+						place = i;
+						isOnLeaderboard[i] = true;
+						placed = true;
+						System.out.println("0b");
+					}
 				}	
 			}
 			
@@ -200,12 +209,18 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//If there are at least two players
 			if(players >= 2) {		
 				//second place text 
-				place = 0; //reset place to 0
-				
+				place = -1; //reset place to 0
+				placed = false;
 				//Marks the scores from highest to lowest
 				for(int i = 0; i < size; i++) {
-					if(leaderboardScore[1] == playerScore[i]) {
-						place = i;
+					if(leaderboardScore[1] == playerScore[i]) { 
+						System.out.println("1a");
+						if(isOnLeaderboard[i] == false && !placed) {
+							place = i;
+							isOnLeaderboard[i] = true;
+							placed = true;
+							System.out.println("1b");
+						}
 					}	
 				}
 				if(place == 0) {
@@ -257,12 +272,18 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//When there is at least three players
 			if(players >= 3) {
 				//text when there is three players
-				place = 0; //reset place to 0
-				
+				place = -1; //reset place to 0
+				placed = false;
 				//Marks the scores from highest to lowest
 				for(int i = 0; i < size; i++) {
 					if(leaderboardScore[2] == playerScore[i]) {
-						place = i;
+						System.out.println("3a");
+						if(isOnLeaderboard[i] == false && !placed) {
+							place = i;
+							isOnLeaderboard[i] = true;
+							placed = true;
+							System.out.println("3b");
+						}
 					}	
 				}
 				if(place == 0) {
@@ -315,12 +336,18 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 			//When there is at least four players
 			if(players == 4) {
 				//text for four players
-				place = 0; //reset place to 0
-				
+				place = -1; //reset place to 0
+				placed = false;
 				//Marks the scores from highest to lowest
 				for(int i = 0; i < size; i++) {
 					if(leaderboardScore[3] == playerScore[i]) {
-						place = i;
+						System.out.println("4a");
+						if(isOnLeaderboard[i] == false && !placed) {
+							place = i;
+							isOnLeaderboard[i] = true;
+							placed = true;
+							System.out.println("4b");
+						}
 					}	
 				}
 				if(place == 0) {
@@ -370,6 +397,8 @@ public class LeaderboardRoundScreenFrame extends JFrame{
 				}
 			}
 		}
+		
+
 		
 		/*
 		 * This function adds text "Leaderboard" to the top-middle part of the screen
