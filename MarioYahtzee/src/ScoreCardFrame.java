@@ -174,6 +174,7 @@ public class ScoreCardFrame extends JFrame{
 			
 			//If not all the players have played that round yet, move on to the next player
 			if(currentPlayer < (totalPlayers-1)) {
+				controller.getGame(currentPlayer).getHand().createHand();
 				new RerollDiceScreenFrame(controller.getGame(curCard.cardID + 1), controller.getCard(currentPlayer + 1), controller, 0, totalPlayers, ++currentPlayer, currentRound, totalRounds, array);
 				currentFrame.dispose();
 			}

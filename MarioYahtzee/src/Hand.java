@@ -91,6 +91,13 @@ public class Hand {
 	public int getRolls() {
 		return rolls;
 	}
+	
+	//for purposes of testing Game Class only
+	public void setHand(int[] handIn) {
+		for (int i = 0; i < 5; i++) {
+			handToUse.set(i,handIn[i]);
+		}
+	}
 
 }
 
